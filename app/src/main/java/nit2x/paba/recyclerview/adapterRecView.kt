@@ -4,15 +4,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ComponentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class adapterRecView (private val listWayang: ArrayList<wayang>) : RecyclerView
     .Adapter<adapterRecView.ListViewHolder> () {
-        inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private lateinit var onItemClickCallback: OnItemClickCallback
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data:wayang)
+    }
+
+    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             var _namaWayang = itemView.findViewById<TextView>(R.id.namaWayang)
             var _karakterWayang = itemView.findViewById<TextView>(R.id.karakterWayang)
             var _deskripsiWayang = itemView.findViewById<TextView>(R.id.deskripsiWayang)
@@ -41,7 +51,12 @@ class adapterRecView (private val listWayang: ArrayList<wayang>) : RecyclerView
             .into(holder._gambarWayang)
 
         holder._gambarWayang.setOnClickListener {
-            Toast.makeText(holder.itemView.context,wayang.nama,Toast.LENGTH_LONG).show()
+//            Toast.makeText(holder.itemView.context,wayang.nama,Toast.LENGTH_LONG).show()
+            onItemClickCallback.onItemClicked(listWayang[position])
         }
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
     }
 }
