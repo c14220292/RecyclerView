@@ -30,6 +30,13 @@
         <TextView
             android:id="@+id/tvDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnHapus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HAPUS DATA" />
     </LinearLayout>
 </ScrollView>
